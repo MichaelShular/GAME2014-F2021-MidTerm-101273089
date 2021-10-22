@@ -17,6 +17,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
+    //Updated names for variables
     public float horizontalSpeed;
     public float horizontalBoundary;
 
@@ -29,17 +30,20 @@ public class BackgroundController : MonoBehaviour
 
     private void _Reset()
     {
+        //switched horizontalBoundary and 0.0f places
         transform.position = new Vector3(horizontalBoundary, 0.0f);
     }
 
     private void _Move()
     {
+        //switched horizontalSpeed and 0.0f places
         transform.position -= new Vector3(horizontalSpeed, 0.0f) * Time.deltaTime;
     }
 
     private void _CheckBounds()
     {
         // if the background is lower than the bottom of the screen then reset
+        //changed the .y to .x
         if (transform.position.x <= -horizontalBoundary)
         {
             _Reset();

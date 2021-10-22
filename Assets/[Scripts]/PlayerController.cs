@@ -1,6 +1,6 @@
 ﻿///Player Controller
 ///101273089 Michael Shular
-///Last modified: 10/18/2021
+///Last modified: 10/21/2021
 ///This set of code controls the actions of the player which are shooting
 ///bullets by getting a bullet from the bullet manager, moving the player
 ///with touch input and restricting the movement to inside the screen.
@@ -10,6 +10,7 @@
 ///_Move the function so that it affect movement instead of x-axis
 ///2. Changed the if statements inside of _CheckBounds now check the 
 ///boundary of the y-axis
+///3. Changed a if statement inside of _Move so that newVelocity moves vertically  
 
 
 
@@ -21,14 +22,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public BulletManager bulletManager;
-
+    //Updated names for variables
     [Header("Boundary Check")]
     public float verticalBoundary;
 
     [Header("Player Speed")]
-    public float horizontalSpeed;
+    public float verticalSpeed;
     public float maxSpeed;
-    public float horizontalTValue;
+    public float verticalTValue;
 
     [Header("Bullet Firing")]
     public float fireDelay;
@@ -70,12 +71,14 @@ public class PlayerController : MonoBehaviour
         {
             var worldTouch = Camera.main.ScreenToWorldPoint(touch.position);
 
+            //changed the if statment's .x to .y
             if (worldTouch.y > transform.position.y)
             {
                 // direction is positive
                 direction = 1.0f;
             }
 
+            //changed the if statment's .x to .y
             if (worldTouch.y < transform.position.y)
             {
                 // direction is negative
@@ -98,14 +101,17 @@ public class PlayerController : MonoBehaviour
             // direction is negative
             direction = -1.0f;
         }
-
+        //changed the if statment's .x to .y
         if (m_touchesEnded.y != 0.0f)
         {
-           transform.position = new Vector2(transform.position.x, Mathf.Lerp(transform.position.y, m_touchesEnded.y, horizontalTValue));
+            //switched transform.position and Mathf.Lerp 
+            //changed the vector2 .x to .y and .y to .x
+            transform.position = new Vector2(transform.position.x, Mathf.Lerp(transform.position.y, m_touchesEnded.y, verticalTValue));
         }
         else
         {
-            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
+            //switched  0.0f and direction * verticalSpeed
+            Vector2 newVelocity = m_rigidBody.velocity + new Vector2( 0.0f, direction * verticalSpeed);
             m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
             m_rigidBody.velocity *= 0.99f;
         }
@@ -114,14 +120,20 @@ public class PlayerController : MonoBehaviour
     private void _CheckBounds()
     {
         // check right bounds
+        //changed the .x to .y
         if (transform.position.y >= verticalBoundary)
         {
+            //switched  transform.position and verticalBoundary
+            //changed the .x to .y
             transform.position = new Vector3(transform.position.x, verticalBoundary,  0.0f);
         }
 
         // check left bounds
+        //changed the .x to .y
         if (transform.position.y <= -verticalBoundary)
         {
+            //switched  transform.position and verticalBoundary
+            //changed the .x to .y
             transform.position = new Vector3(transform.position.x, -verticalBoundary, 0.0f);
         }
 

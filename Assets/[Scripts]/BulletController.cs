@@ -15,6 +15,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour, IApplyDamage
 {
+    //Updated names for variables
     public float horizontalSpeed;
     public float horizontalBoundary;
     public BulletManager bulletManager;
@@ -35,11 +36,13 @@ public class BulletController : MonoBehaviour, IApplyDamage
 
     private void _Move()
     {
+        //switched horizontalSpeed and the 0.0f in vector3.y
         transform.position += new Vector3(horizontalSpeed, 0.0f,  0.0f) * Time.deltaTime;
     }
 
     private void _CheckBounds()
     {
+        //changed the if statements .y to .x
         if (transform.position.x > horizontalBoundary)
         {
             bulletManager.ReturnBullet(gameObject);

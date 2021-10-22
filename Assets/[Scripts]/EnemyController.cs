@@ -14,6 +14,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    //Updated names for variables
     public float verticalSpeed;
     public float verticalBoundary;
     public float direction;
@@ -27,18 +28,21 @@ public class EnemyController : MonoBehaviour
 
     private void _Move()
     {
+        //switched verticalSpeed* direction * Time.deltaTime and the 0.0f in vector3.x
         transform.position += new Vector3( 0.0f, verticalSpeed * direction * Time.deltaTime, 0.0f);
     }
 
     private void _CheckBounds()
     {
         // check right boundary
+        //changed the if statements .x to .y
         if (transform.position.y >= verticalBoundary)
         {
             direction = -1.0f;
         }
 
         // check left boundary
+        //changed the if statements .x to .y
         if (transform.position.y <= -verticalBoundary)
         {
             direction = 1.0f;
